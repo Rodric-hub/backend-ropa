@@ -16,15 +16,23 @@ export const registerUser = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await registerUserDB(nombre, email, hashedPassword);
 
+        const token = jwt.sign(
+            { id: user.id, email: user.email },
+            process.env.JWT_SECRET,
+            { expiresIn: "1h" }
+        );
+
         res.status(201).json({
             message: "Usuario registrado exitosamente",
-            user,
+            token,
+            user: { id: user.id, nombre: user.nombre, email: user.email },
         });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Error al registrar usuario" });
     }
 };
+
 
 export const loginUser = async (req, res) => {
     const { email, password } = req.body;

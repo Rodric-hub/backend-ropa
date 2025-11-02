@@ -1,13 +1,10 @@
 import pool from '../config/db.js';
 
 
-export const getCartByUser = async (userId) => {
+export const getCartByUser = async (user_id) => {
     const result = await pool.query(
-        `SELECT c.id, c.product_id, p.nombre, p.precio, p.imagen, c.quantity
-     FROM cart c
-     JOIN products p ON c.product_id = p.id
-     WHERE c.user_id = $1`,
-        [userId]
+        `SELECT c.id, c.product_id, p.nombre, p.precio, p.imagen, c.quantity FROM cart c JOIN products p ON c.product_id = p.id WHERE c.user_id = $1`,
+        [user_id]
     );
     return result.rows;
 };
