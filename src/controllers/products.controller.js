@@ -29,8 +29,7 @@ export const createNewProduct = async (req, res) => {
     }
 };
 
-// src/controllers/products.controller.js
-const Product = require('../models/products.model');
+
 
 // Obtener todos los productos
 exports.getProducts = async (req, res) => {
@@ -85,5 +84,4 @@ exports.deleteProduct = async (req, res) => {
     res.status(500).json({ message: 'Error al eliminar el producto', error });
   }
 };
-
 
