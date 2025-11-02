@@ -30,6 +30,7 @@ export const createNewProduct = async (req, res) => {
 };
 
 
+
 // Obtener todos los productos
 exports.getProducts = async (req, res) => {
   try {
