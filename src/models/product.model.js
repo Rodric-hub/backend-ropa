@@ -18,3 +18,22 @@ export const createProduct = async (product) => {
     );
     return result.rows[0];
 };
+
+export const updateProduct = async (id, product) => {
+  const { name, description, price, image_url } = product;
+  const result = await pool.query(
+    `UPDATE products
+     SET name = $1, description = $2, price = $3, image_url = $4
+     WHERE id = $5 RETURNING *`,
+    [name, description, price, image_url, id]
+  );
+  return result.rows[0];
+};
+
+export const deleteProduct = async (id) => {
+  const result = await pool.query(
+    'DELETE FROM products WHERE id = $1 RETURNING *',
+    [id]
+  );
+  return result.rows[0];
+};
